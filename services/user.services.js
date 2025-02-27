@@ -14,7 +14,20 @@ class UserService {
 
         }
     }
-}
+
+
+    static async checkUser(email) {
+        try {
+
+            return await UserModel({ email });
+
+        } catch (error) {
+            throw error;
+
+        }
+    }
+
+
 
 
 module.exports = UserService;
