@@ -1,5 +1,6 @@
 const app = require('./app');
 const UserModel = require('./model/user.model')
+const TodoModel = require('./model/todo.model')
 
 
 const port = 3000;

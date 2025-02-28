@@ -1,7 +1,7 @@
 const UserService = require('../services/user.services')
 
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
     try {
 
         const { email, password } = req.body;
@@ -15,28 +15,35 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
     try {
 
         const { email, password } = req.body;
 
 
-        const user = UserService.checkUser(email);
+        const user = await UserService.checkUser(email);
         if (!user) {
             throw new Error("User not exist");
         }
 
-        const isMatch = user.comparePassword(password);
+        const isMatch = await user.comparePassword(password);
 
 
         if (isMatch === false) {
             throw new Error("Password is invalid");
         }
 
+        let tokenData = { _id: user._id, email: user.email };
 
-        const successRes = await UserService.registerUser(email, password);
+        const token = await UserService.generateToken(tokenData, 'secretKey', '1h');
 
-        res.json({ status: 200, message: 'User Registered Successfully.' });
+
+        res.status(200).json({ status: true, token: token })
+
+
+        // const successRes = await UserService.login(email, password);
+
+        // res.json({ status: 200, message: 'User Registered Successfully.' });
 
     } catch (error) {
         throw error;
