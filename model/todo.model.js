@@ -7,7 +7,6 @@ const { Schema } = mongoose;
 
 const TodoSchema = new Schema({
     userId: {
-
         type: String,
         ref: UserModel.modelName
     },

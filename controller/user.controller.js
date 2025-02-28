@@ -1,6 +1,5 @@
 const UserService = require('../services/user.services')
 
-
 exports.register = async (req, res, next) => {
     try {
 
@@ -39,11 +38,6 @@ exports.login = async (req, res, next) => {
 
 
         res.status(200).json({ status: true, token: token })
-
-
-        // const successRes = await UserService.login(email, password);
-
-        // res.json({ status: 200, message: 'User Registered Successfully.' });
 
     } catch (error) {
         throw error;

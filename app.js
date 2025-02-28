@@ -9,8 +9,8 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 app.use(body_parser.json());
-app.use('/', userRouter)
-app.use('/', todoRoute)
+app.use('/api/', userRouter)
+app.use('/api/', todoRoute)
 
 
 module.exports = app;
